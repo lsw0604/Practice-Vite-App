@@ -1,9 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { NewNote } from "./NewNote";
+import NewNote from "./pages/NewNote";
+import NoteList from "./Components/NoteList";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 function App() {
@@ -26,10 +27,38 @@ function App() {
     setTags(prev => [...prev, tag]);
   }
 
+  function updateTag(id: string, label: string) {
+    setTags(prevTags => {
+      return prevTags.map(tag => {
+        if (tag.id === id) {
+          return { ...tag, label }
+        } else {
+          return tag
+        }
+      })
+    })
+  }
+
+  function deleteTag(id: string) {
+    setTags(prevTags => {
+      return prevTags.filter(tag => tag.id !== id);
+    })
+  }
+
   return (
     <Container className="my-4">
       <Routes>
-        <Route path="/" element={<h1>HOME</h1>} />
+        <Route 
+          path="/" 
+          element={
+            <NoteList 
+              notes={notesWithTags}
+              availableTags={tags}
+              onDeleteTag={deleteTag}
+              onUpdateTag={updateTag}
+            />
+          }
+        />
         <Route 
           path="/new" 
           element={

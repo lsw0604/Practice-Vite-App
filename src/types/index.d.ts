@@ -38,3 +38,16 @@ type NewNoteProps = {
   onAddTag: (tag: Tag) => void;
   availableTags: Tag[];
 }
+
+type SimplifiedNote = {
+  tags: Tag[];
+  title: string;
+  id: string;
+}
+
+type NoteListProps = {
+  availableTags: Tag[];
+  notes: SimplifiedNote[];
+  onDeleteTag: (id: string) => void;
+  onUpdateTag: (id: string, label: string) => void;
+}

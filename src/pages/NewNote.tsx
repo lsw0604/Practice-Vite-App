@@ -1,6 +1,6 @@
-import NoteForm from "./Components/NoteForm";
+import NoteForm from "../Components/NoteForm";
 
-export function NewNote ({ onSubmit, onAddTag, availableTags }: NewNoteProps) {
+export default function NewNote ({ onSubmit, onAddTag, availableTags }: NewNoteProps) {
   return (
     <>
       <h1 className="mb-4">New Note</h1>
