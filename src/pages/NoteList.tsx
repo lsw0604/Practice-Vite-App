@@ -2,6 +2,7 @@ import { Row, Col, Stack, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import ReactSelect from "react-select";
+import EditTagsModal from "../Components/EditTagsModal";
 
 export default function NoteList({
   availableTags,
@@ -89,6 +90,13 @@ export default function NoteList({
           </Col>
         ))}
       </Row>
+      <EditTagsModal 
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
+        show={editTagsModalIsOpen}
+        handleClose={() => setEditTagsModalIsOpen(false)}
+        availableTags={availableTags}
+      />
     </>
   )
 }
