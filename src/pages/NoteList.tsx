@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import ReactSelect from "react-select";
 import EditTagsModal from "../Components/EditTagsModal";
+import NoteCard from "../Components/NoteCard";
 
 export default function NoteList({
   availableTags,
@@ -86,7 +87,7 @@ export default function NoteList({
       <Row xs={1} sm={2} lg={3} xl={4} className="g-3">
         {filteredNotes.map(note => (
           <Col key={note.id}>
-            Note Card
+            <NoteCard id={note.id} title={note.title} tags={note.tags} />
           </Col>
         ))}
       </Row>

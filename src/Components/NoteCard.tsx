@@ -1,6 +1,6 @@
 import { Card, Stack, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import styles from "NoteCard.module.css";
+import styles from "./NoteCard.module.css";
 
 export default function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (

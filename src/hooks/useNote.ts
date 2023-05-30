@@ -33,6 +33,30 @@ export function useNote(
     })
   }
 
+  function onUpdateNote(id: string, { tags, ...data }: NoteData) {
+    setNote(prevNote => {
+      return prevNote.map(note => {
+        if (note.id === id) {
+          return { 
+            ...note, 
+            ...data, 
+            tagIds: tags.map(
+              tag => tag.id
+            )
+          };
+        } else {
+          return note;
+        }
+      })
+    })
+  }
+
+  function onDeleteNote(id: string) {
+    setNote(prevNote => {
+      return prevNote.filter(note => note.id !== id);
+    })
+  }
+
   function addTag(tag: Tag) {
     setTags(prevTag => [...prevTag, tag]);
   }
@@ -57,6 +81,8 @@ export function useNote(
   return {
     notesWithTags,
     onCreateNote,
+    onUpdateNote,
+    onDeleteNote,
     addTag,
     updateTag,
     deleteTag

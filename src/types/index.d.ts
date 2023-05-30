@@ -27,7 +27,7 @@ type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
   onAddTag: (tag: Tag) => void;
   availableTags: Tag[];
-}
+} & Partial<NoteData>
 
 type RawNote = {
   id: string
@@ -58,4 +58,18 @@ type EditTagsModalProps = {
   handleClose: () => void;
   onDeleteTag: (id: string) => void;
   onUpdateTag: (id: string, label: string) => void;
+}
+
+type NoteLayoutProps = {
+  notes: Note[]
+}
+
+type NoteProps = {
+  onDelete: (id: string) => void;
+}
+
+type EditNoteProps = {
+  onSubmit: (id: string, data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTag: Tag[];
 }

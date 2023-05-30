@@ -4,9 +4,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import NewNote from "./pages/NewNote";
 import NoteList from "./pages/NoteList";
+import Note from "./pages/Note";
 
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useNote } from "./hooks/useNote";
+import { NoteLayout } from "./pages/NoteLayout";
+import EditNote from "./pages/EditNote";
 
 function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
@@ -14,6 +17,8 @@ function App() {
   const { 
     notesWithTags,
     onCreateNote,
+    onDeleteNote,
+    onUpdateNote,
     addTag,
     deleteTag,
     updateTag
@@ -43,9 +48,23 @@ function App() {
             />
           } 
         />
-        <Route path="/:id">
-          <Route index element={<h1>SHOW</h1>} />
-          <Route path="edit" element={<h1>Edit</h1>} />
+        <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
+          <Route 
+            index 
+            element={
+              <Note onDelete={onDeleteNote} />
+            }
+          />
+          <Route 
+            path="edit" 
+            element={
+              <EditNote 
+                onSubmit={onUpdateNote}
+                onAddTag={addTag}
+                availableTag={tags}
+              />
+            }
+          />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
