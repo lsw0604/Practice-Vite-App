@@ -24,13 +24,17 @@ type Tag = {
 }
 
 type NoteFormProps = {
-  onSubmit: (data: NoteData) => void
+  onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
 }
 
 type RawNote = {
   id: string
 }
 
-type newNoteProps = {
+type NewNoteProps = {
   onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
 }

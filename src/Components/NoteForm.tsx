@@ -1,9 +1,10 @@
 import { FormEvent, useRef, useState } from "react";
 import { Form, Stack, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import CreatableReactSelect from "react-select";
+import CreatableReactSelect from "react-select/creatable";
+import { v4 as uuidV4 } from "uuid"
 
-export default function NoteForm({ onSubmit }: NoteFormProps) {
+export default function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -30,8 +31,16 @@ export default function NoteForm({ onSubmit }: NoteFormProps) {
           <Col>
             <Form.Group controlId="tags">
               <Form.Label>Tags</Form.Label>
-              <CreatableReactSelect 
+              <CreatableReactSelect
+                onCreateOption={label => {
+                  const newTag = { id: uuidV4(), label }
+                  onAddTag(newTag)
+                  setSelectedTags(prev => [...prev, newTag])
+                }}
                 value={selectedTags.map(tag => {
+                  return { label: tag.label, value: tag.id }
+                })}
+                options={availableTags.map(tag => { 
                   return { label: tag.label, value: tag.id }
                 })}
                 onChange={tags => {
